@@ -191,7 +191,7 @@ module.exports = {
         from: process.env.EMAIL,
         to: emailId,
         subject: 'File Sharing Notification',
-        text: `You have been shared a file: ${file.filename} from ${req.user.name}. You can access it using the following link: ${file.link}`,
+        text: `You have been shared a file: ${file.filename} from ${req.user.name}. You can access it using the following link: https://paperworks.netlify.app/dashboard/${file}`,
       };
 
       // Send the email
