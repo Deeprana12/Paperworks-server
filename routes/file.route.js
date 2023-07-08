@@ -11,7 +11,7 @@ router.post('/pdf/upload', auth, pdfController.uploadPdf);
 router.get('/pdf/all', auth, pdfController.getAllPdfs);
 
 // Route: Get a specific PDF by ID
-// router.get('/pdf/:id', auth, pdfController.getPdfById);
+router.get('/pdf/:id', auth, pdfController.getPdfById);
 
 router.get('/pdf/shared', auth, pdfController.getSharedPdf);
 
