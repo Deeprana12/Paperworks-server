@@ -13,9 +13,9 @@ router.get('/pdf/all', auth, pdfController.getAllPdfs);
 // Route: Get a specific PDF by ID
 router.get('/pdf/:id', auth, pdfController.getPdfById);
 
-router.get('/pdf/shared', auth, pdfController.getSharedPdf);
+router.get('/sharedpdf', auth, pdfController.getSharedPdf);
 
-router.get('/pdf/my', auth, pdfController.getMyPdf);
+router.get('/mypdf', auth, pdfController.getMyPdf);
 
 // Route: Delete a specific PDF by ID
 router.delete('/pdf/:id', auth, pdfController.deletePdfById);
