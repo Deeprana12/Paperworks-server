@@ -111,8 +111,13 @@ module.exports = {
   getPdfById: async (req, res) => {
     try {
       const pdfId = req.params.id;
-
       const pdf = await Pdf.findById(pdfId);
+
+      const isContains = pdf.sharedWith.includes(req.user._id)
+
+      if(!isContains){
+        return res.status(403).json({message:"User doesn't have permission to access this file!"})
+      }
 
       if (!pdf) {
         return res.status(404).json({ error: 'PDF not found' });
