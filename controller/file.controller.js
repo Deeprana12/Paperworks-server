@@ -114,8 +114,9 @@ module.exports = {
       const pdf = await Pdf.findById(pdfId);
 
       const isContains = pdf.sharedWith.includes(req.user._id)
+      const isOwner = ((pdf.createdBy).toString().includes(req.user._id)) 
 
-      if(!isContains){
+      if(!isContains && !isOwner){
         return res.status(403).json({message:"User doesn't have permission to access this file!"})
       }
 
