@@ -1,5 +1,45 @@
 const mongoose = require('mongoose');
 
+const commentContentSchema = new mongoose.Schema({
+    type: {
+      type: String,
+      enum: ['text', 'mention'],
+      required: true,
+    },
+    value: {
+      type: String,
+      required: true,
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  }
+)
+
+const commentSchema = new mongoose.Schema({
+  author: {
+    type: String,
+    required: true
+  },
+  content: [ commentContentSchema ],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  parentComment: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment',
+    default: null
+  },
+  replies: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comment'
+    }
+  ]
+});
+
 const pdfSchema = new mongoose.Schema({
   filename: {
     type: String,
@@ -20,24 +60,11 @@ const pdfSchema = new mongoose.Schema({
       ref: 'User'
     }
   ],
-  comments: [
-    {
-      author: {
-        type: String,
-        required: true
-      },
-      content: {
-        type: String,
-        required: true
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now
-      }
-    }
-  ]
-});
+  comments: [commentSchema]
+}); 
 
 const Pdf = mongoose.model('Pdf', pdfSchema);
+const Comment = mongoose.model('Comment', commentSchema);
+const CommentContent = mongoose.model('Comment_Content', commentContentSchema);
 
-module.exports = Pdf;
+module.exports = { Pdf, Comment, CommentContent };
